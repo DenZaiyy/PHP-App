@@ -1,6 +1,8 @@
 <?php
 session_start();
 ?>
+
+<!-- Définition superglobals / session / cookie -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -24,16 +26,19 @@ session_start();
                     <a class="nav-link" href="recap.php">Récapitulatif</a>
                     <a class="nav-link disabled" href="#">
                         <?php
-                        if (is_array($_SESSION['products'])) {
-                            $count = count($_SESSION['products']);
-                            if ($count > 1) {
-                                echo $count . " produits";
-                            } else {
-                                echo $count . " produit";
+                        if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
+                            if (is_array($_SESSION['products'])) {
+                                $count = count($_SESSION['products']);
+                                if ($count > 1) {
+                                    echo $count . " produits";
+                                } else {
+                                    echo $count . " produit";
+                                }
                             }
                         } else {
                             echo "0 produit";
-                        } ?>
+                        }
+                        ?>
                     </a>
                 </div>
             </div>
@@ -44,7 +49,7 @@ session_start();
             echo $message;
         } ?>
         <h1 class="text-center">Ajouter un produit</h1>
-        <form action="traitement.php" method="post">
+        <form action="traitement.php?action=ajouter" method="post">
             <div class="row">
                 <div class="col">
                     <label for="name" class="form-label">Nom du produit</label>
@@ -54,7 +59,7 @@ session_start();
                 <div class="col">
                     <label for="price" class="form-label">Prix du produit</label>
                     <div class="input-group mb-3">
-                        <input type="number" name="price" step="any" class="form-control form-control-sm" aria-label="Amount (to the nearest dollar)">
+                        <input type="number" name="price" step="any" class="form-control form-control-sm" aria-label="Amount (to the nearest euros)">
                         <span class="input-group-text">€</span>
                     </div>
                 </div>

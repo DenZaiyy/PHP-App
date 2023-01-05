@@ -24,12 +24,14 @@ session_start();
                     <a class="nav-link active" href="recap.php">Récapitulatif</a>
                     <a class="nav-link disabled" href="#">
                         <?php
-                        if (is_array($_SESSION['products'])) {
-                            $count = count($_SESSION['products']);
-                            if ($count > 1) {
-                                echo $count . " produits";
-                            } else {
-                                echo $count . " produit";
+                        if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
+                            if (is_array($_SESSION['products'])) {
+                                $count = count($_SESSION['products']);
+                                if ($count > 1) {
+                                    echo $count . " produits";
+                                } else {
+                                    echo $count . " produit";
+                                }
                             }
                         } else {
                             echo "0 produit";
@@ -59,31 +61,22 @@ session_start();
         "</thead>",
         '<tbody class="text-center">';
 
-        function moinsBtn()
-        {
-        }
-
-        function plusBtn()
-        {
-        }
-
         $totalGeneral = 0;
         foreach ($_SESSION['products'] as $index => $product) {
-
             echo "<tr>",
             "<td>" . $index . "</td>",
             "<td>" . $product['name'] . "</td>",
             "<td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
-            "<td>" . '<input type="button" name="moins" value="-" class="btn btn-outline-danger" onclick="' . moinsBtn() . '"> ' . $product['qtt'] . ' <input type="button" name="plus" value="+" class="btn btn-outline-success" onclick="' . plusBtn() . '">' . "</td>",
+            "<td>" . '<a href="traitement.php?action=decreaseQuantity&id=' . $index . '" class="btn btn-outline-danger">-</a> ' . $product['qtt'] . ' <a href="traitement.php?action=increaseQuantity&id=' . $index . '" class="btn btn-outline-success">+</a>' . "</td>",
             "<td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
-            "<td>" . '<form action="traitement.php" method="post"><input type="submit" name="delete" class="btn btn-danger" value="Supprimer">' . "</form></td>",
+            '<td><a href="traitement.php?action=deleteItem&id=' . $index . '" class="btn btn-danger">Supprimer</a></td>',
             "</tr>";
             $totalGeneral += $product['total'];
         }
         echo "<tr>",
         "<td colspan=4>Total général : </td>",
         "<td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;€</strong></td>",
-        "<td>" . '<form action="traitement.php" method="post"><input type="submit" name="deleteAll" class="btn btn-danger" value="Supprimer tout les produits">' . "</form></td>",
+        "<td>" . '<a href="traitement.php?action=removeAll" class="btn btn-danger">Supprimer tout les produits</a>' . "</td>",
         "</tr>";
         echo "</tbody>",
         "</table>",

@@ -11,6 +11,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajout de produit</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
 <body class="bg-dark text-light">
@@ -24,7 +25,8 @@ session_start();
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
                     <a class="nav-link" href="recap.php">Récapitulatif</a>
-                    <a class="nav-link disabled" href="#">
+                    <a class="nav-link disabled position-absolute end-0 mx-2" href="#">
+                        <i class="bi bi-cart"></i>
                         <?php
                         if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
                             if (is_array($_SESSION['products'])) {

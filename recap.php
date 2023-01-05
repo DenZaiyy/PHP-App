@@ -9,6 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Récapitulatif des produits</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
 <body class="bg-dark text-light">
@@ -22,7 +23,8 @@ session_start();
                 <div class="navbar-nav">
                     <a class="nav-link" aria-current="page" href="index.php">Accueil</a>
                     <a class="nav-link active" href="recap.php">Récapitulatif</a>
-                    <a class="nav-link disabled" href="#">
+                    <a class="nav-link disabled position-absolute end-0 mx-2" href="#">
+                        <i class="bi bi-cart"></i>
                         <?php
                         if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
                             if (is_array($_SESSION['products'])) {
@@ -44,7 +46,7 @@ session_start();
     <?php
     if (!isset($_SESSION['products']) || empty($_SESSION['products'])) {
         echo '<div class="container text-center mt-5">',
-        "<p>Aucun produit en session...</p>",
+        "<strong>Aucun produit en session...</strong>",
         '</div>';
     } else {
         echo '<div class="container">',
@@ -64,12 +66,12 @@ session_start();
         $totalGeneral = 0;
         foreach ($_SESSION['products'] as $index => $product) {
             echo "<tr>",
-            "<td>" . $index . "</td>",
+            "<td><strong>" . $index . "</strong></td>",
             "<td>" . $product['name'] . "</td>",
             "<td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
             "<td>" . '<a href="traitement.php?action=decreaseQuantity&id=' . $index . '" class="btn btn-outline-danger">-</a> ' . $product['qtt'] . ' <a href="traitement.php?action=increaseQuantity&id=' . $index . '" class="btn btn-outline-success">+</a>' . "</td>",
             "<td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
-            '<td><a href="traitement.php?action=deleteItem&id=' . $index . '" class="btn btn-danger">Supprimer</a></td>',
+            '<td><a href="traitement.php?action=deleteItem&id=' . $index . '" class="btn btn-outline-danger">Supprimer</a></td>',
             "</tr>";
             $totalGeneral += $product['total'];
         }

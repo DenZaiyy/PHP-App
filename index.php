@@ -2,7 +2,7 @@
 session_start();
 ?>
 
-<!-- Définition superglobals / session / cookie -->
+<!-- TODO: Définition superglobals / session / cookie -->
 <!DOCTYPE html>
 <html lang="fr">
 

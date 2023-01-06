@@ -47,11 +47,11 @@ session_start();
         </div>
     </nav>
     <div class="container mt-5">
-        <?php if (isset($message)) {
-            echo $message;
+        <?php if (isset($_SESSION['statuts'])) {
+            echo "<p>" . $_SESSION['statuts'] . "</p>";
         } ?>
         <h1 class="text-center">Ajouter un produit</h1>
-        <form action="traitement.php?action=ajouter" method="post">
+        <form action="traitement.php?action=addProduct" method="post">
             <div class="row">
                 <div class="col">
                     <label for="name" class="form-label">Nom du produit</label>
@@ -67,7 +67,7 @@ session_start();
                 </div>
                 <div class="col">
                     <label for="qtt" class="form-label">Quantité désirée</label>
-                    <input type="number" class="form-control" name="qtt" id="qtt" value="1">
+                    <input type="number" class="form-control" name="qtt" id="qtt" min="1" max="100" value="1">
                 </div>
             </div>
             <div class="d-grid gap-2">

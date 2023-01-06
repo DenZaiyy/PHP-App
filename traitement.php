@@ -40,6 +40,7 @@ if (isset($_GET['action'])) {
         case "deleteItem":
             //si j'ai le mot clé "id" dans l'URL et que j'ai un produit dans mon tableau qui correspond à cet id
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) {
+                //alors je supprime la ligne de mon tableau contenant l'id selectionner
                 unset($_SESSION['products'][$_GET['id']]);
                 header('Location:recap.php');
                 die();
@@ -47,8 +48,11 @@ if (isset($_GET['action'])) {
             break;
         case "decreaseQuantity":
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) {
+                //je décrémente la valeur de "qtt" de 1
                 $_SESSION['products'][$_GET['id']]['qtt'] -= 1;
+                //je recalcule mon total pour pouvoir mettre à jour le prix par rapport a la quantité
                 $_SESSION['products'][$_GET['id']]['total'] = $_SESSION['products'][$_GET['id']]['price'] * $_SESSION['products'][$_GET['id']]['qtt'];
+                //je vérifie si la quantité est égale à 0, si oui, je supprime la ligne du tableau
                 if ($_SESSION['products'][$_GET['id']]['qtt'] === 0) {
                     unset($_SESSION['products'][$_GET['id']]);
                 }

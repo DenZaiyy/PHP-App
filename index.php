@@ -28,6 +28,7 @@ session_start();
                     <a class="nav-link disabled position-absolute end-0 mx-2" href="#">
                         <i class="bi bi-cart"></i>
                         <?php
+                        //Vérifie si il y as un produit ajouter ou que ce n'est pas vide afin d'afficher le nombres de produit en mode "panier"
                         if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
                             if (is_array($_SESSION['products'])) {
                                 $count = count($_SESSION['products']);
@@ -47,9 +48,11 @@ session_start();
         </div>
     </nav>
     <div class="container mt-5">
-        <?php if (isset($_SESSION['statuts'])) {
-            echo "<p>" . $_SESSION['statuts'] . "</p>";
-        } ?>
+        <?php if (isset($_SESSION['statuts'])) { ?>
+            <script>
+               alert('<?php  echo $_SESSION['statuts'] ?>');
+            </script>
+        <?php $_SESSION['statuts'] = null; } ?>
         <h1 class="text-center">Ajouter un produit</h1>
         <form action="traitement.php?action=addProduct" method="post">
             <div class="row">

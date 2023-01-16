@@ -64,21 +64,21 @@ session_start();
         '<tbody class="text-center">';
 
         $totalGeneral = 0;
-        foreach ($_SESSION['products'] as $index => $product) {
+        foreach ($_SESSION['products'] as $index => $product) { //Parcours le tableau de mes produits stocker en session
             echo "<tr>",
             "<td><strong>" . $index . "</strong></td>",
-            "<td>" . $product['name'] . "</td>",
-            "<td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
-            "<td>" . '<a href="traitement.php?action=decreaseQuantity&id=' . $index . '" class="btn btn-outline-danger">-</a> ' . $product['qtt'] . ' <a href="traitement.php?action=increaseQuantity&id=' . $index . '" class="btn btn-outline-success">+</a>' . "</td>",
-            "<td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;€</td>",
-            '<td><a href="traitement.php?action=deleteItem&id=' . $index . '" class="btn btn-outline-danger">Supprimer</a></td>',
+            "<td>" . $product['name'] . "</td>", //Récupération du nom
+            "<td>" . number_format($product['price'], 2, ",", "&nbsp;") . "&nbsp;€</td>", //Récupération du prix
+            "<td>" . '<a href="traitement.php?action=decreaseQuantity&id=' . $index . '" class="btn btn-outline-danger">-</a> ' . $product['qtt'] . ' <a href="traitement.php?action=increaseQuantity&id=' . $index . '" class="btn btn-outline-success">+</a>' . "</td>", //Récupération de la quantité
+            "<td>" . number_format($product['total'], 2, ",", "&nbsp;") . "&nbsp;€</td>", //Calcule du total
+            '<td><a href="traitement.php?action=deleteItem&id=' . $index . '" class="btn btn-outline-danger">Supprimer</a></td>', //Boutton permettant de supprimer un item du tableau se basans par l'id de la ligne du tableau
             "</tr>";
             $totalGeneral += $product['total'];
         }
         echo "<tr>",
         "<td colspan=4>Total général : </td>",
-        "<td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;€</strong></td>",
-        "<td>" . '<a href="traitement.php?action=removeAll" class="btn btn-danger">Supprimer tout les produits</a>' . "</td>",
+        "<td><strong>" . number_format($totalGeneral, 2, ",", "&nbsp;") . "&nbsp;€</strong></td>", //Affichage du prix total du panier
+        "<td>" . '<a href="traitement.php?action=removeAll" class="btn btn-danger">Supprimer tout les produits</a>' . "</td>", //Boutton pour supprimer tout les produits
         "</tr>";
         echo "</tbody>",
         "</table>",

@@ -1,6 +1,8 @@
 <?php
 require './db-functions.php';
-$product = findOneById(($_GET['id']));
+$id = $_GET['id'];
+filter_var($id, FILTER_VALIDATE_INT);
+$product = findOneById($id);
 ?>
 
 <!DOCTYPE html>
@@ -21,11 +23,11 @@ $product = findOneById(($_GET['id']));
                 Product infos
             </div>
             <div class="card-body">
-                <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                <p class="card-text"><?php echo $product['description']; ?></p>
-                <p class="card-text"><strong><?php echo number_format($product["price"], 2, ",", "&nbsp;") ?> €</strong></p>
+                <h5 class="card-title"><?= $product['name']; ?></h5>
+                <p class="card-text"><?= $product['description']; ?></p>
+                <p class="card-text"><strong><?= number_format($product["price"], 2, ",", "&nbsp;") ?> €</strong></p>
                 <a href="index.php" class="btn btn-primary">Back to home</a>
-                <a href="" class="btn btn-danger">Add to shop</a>
+                <a href="traitement.php?action=addToCart&id=<?= $product['id'] ?>" class="btn btn-danger">Add to cart</a>
 
             </div>
         </div>

@@ -1,10 +1,31 @@
 <?php
 session_start();
+require './db-functions.php';
 
 //si il y a le mot action dans l'url
 if (isset($_GET['action'])) {
     //switch entre différentes actions possibles
     switch ($_GET['action']) {
+        case "addToCart":
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                filter_var($id, FILTER_VALIDATE_INT);
+                $item = findOneById($id);
+                $qtt = 1;
+
+                $product = [
+                    "name" => $item['name'],
+                    "price" => $item['price'],
+                    "qtt" => $qtt,
+                    "total" => $item['price'] * $qtt
+                ];
+
+                if ($_SESSION['products']['name'] === $item['name']) {
+                }
+                $_SESSION['products'][] = $product;
+                header('Location:index.php');
+            }
+            break;
         case "addProduct":
             if (isset($_POST['submit'])) {
                 $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);

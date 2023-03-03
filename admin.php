@@ -26,8 +26,9 @@ $products = findAll();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
+                    <a class="nav-link" href="index.php">Accueil</a>
                     <a class="nav-link" href="recap.php">Récapitulatif</a>
+                    <a class="nav-link active" aria-current="page" href="admin.php">Admin</a>
                     <a class="nav-link disabled position-absolute end-0 mx-2" href="#">
                         <i class="bi bi-cart"></i>
                         <?php
@@ -57,35 +58,6 @@ $products = findAll();
             </script>
         <?php $_SESSION['statuts'] = null;
         } ?>
-        <h2 class="text-center">Lists of products</h2>
-        <form action="traitement.php?action=addProduct">
-
-
-            <table class="table table-dark table-striped-columns table-hover mt-5">
-                <thead class="table-light text-center">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <!-- <th>Action</th> -->
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <?php
-                    foreach ($products as $value) {
-                        echo "<tr>",
-                        "<td><strong>" .  $value["id"] . "</strong></td>",
-                        "<td>" . $value["name"] . "</td>",
-                        "<td>" . substr($value["description"], 0, 50) . "...</td>",
-                        "<td>" . number_format($value["price"], 2, ",", "&nbsp;") . " €</td>",
-                        // '<td><input type="button" value="Add to shop" class="btn btn-secondary"/></td>',
-                        "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </form>
         <h2 class="text-center">Ajouter un produit</h2>
         <form action="traitement.php?action=addProduct" method="post">
             <div class="row">

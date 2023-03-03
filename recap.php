@@ -21,8 +21,9 @@ session_start();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="index.php">Accueil</a>
-                    <a class="nav-link active" href="recap.php">Récapitulatif</a>
+                    <a class="nav-link" href="index.php">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="recap.php">Récapitulatif</a>
+                    <a class="nav-link" href="admin.php">Admin</a>
                     <a class="nav-link disabled position-absolute end-0 mx-2" href="#">
                         <i class="bi bi-cart"></i>
                         <?php

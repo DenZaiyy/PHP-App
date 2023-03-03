@@ -14,13 +14,30 @@ if (isset($_GET['action'])) {
                 $qtt = 1;
 
                 $product = [
+                    "product_id" => $item['id'],
                     "name" => $item['name'],
                     "price" => $item['price'],
                     "qtt" => $qtt,
                     "total" => $item['price'] * $qtt
                 ];
 
-                $_SESSION['products'][] = $product;
+                $already_exists = false;
+
+                foreach ($_SESSION['products'] as $key => $value) {
+                    if ($value['product_id'] === $item['id']) {
+                        $already_exists = $key;
+                        break;
+                    }
+                }
+
+                if ($already_exists !== false) {
+                    $_SESSION['products'][$already_exists]['qtt'] += $qtt;
+                    $_SESSION['products'][$already_exists]['total'] = $_SESSION['products'][$already_exists]['price'] * $_SESSION['products'][$already_exists]['qtt'];
+                } else {
+                    $_SESSION['products'][] = $product;
+                }
+
+
                 header('Location:index.php');
             }
             break;

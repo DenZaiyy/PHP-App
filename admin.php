@@ -52,30 +52,23 @@ $products = findAll();
         </div>
     </nav>
     <div class="container mt-5">
-        <?php if (isset($_SESSION['statuts'])) { ?>
-            <script>
-                alert('<?php echo $_SESSION['statuts'] ?>');
-            </script>
-        <?php $_SESSION['statuts'] = null;
-        } ?>
         <h2 class="text-center">Ajouter un produit</h2>
         <form action="traitement.php?action=addProduct" method="post">
             <div class="row">
                 <div class="col">
                     <label for="name" class="form-label">Nom du produit</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="text" class="form-control" name="name" id="name" required>
                 </div>
-
+                <div class="col">
+                    <label for="desc" class="form-label">Description du produit</label>
+                    <textarea name="desc" id="desc" class="form-control" style="resize: none; height: 38px; width: 650px;" required></textarea>
+                </div>
                 <div class="col">
                     <label for="price" class="form-label">Prix du produit</label>
                     <div class="input-group mb-3">
-                        <input type="number" name="price" step="any" class="form-control form-control-sm" aria-label="Amount (to the nearest euros)">
+                        <input type="number" name="price" step="any" class="form-control form-control-sm" aria-label="Amount (to the nearest euros)" required>
                         <span class="input-group-text">€</span>
                     </div>
-                </div>
-                <div class="col">
-                    <label for="qtt" class="form-label">Quantité désirée</label>
-                    <input type="number" class="form-control" name="qtt" id="qtt" min="1" max="100" value="1">
                 </div>
             </div>
             <div class="d-grid gap-2">

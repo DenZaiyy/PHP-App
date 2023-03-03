@@ -20,8 +20,6 @@ if (isset($_GET['action'])) {
                     "total" => $item['price'] * $qtt
                 ];
 
-                if ($_SESSION['products']['name'] === $item['name']) {
-                }
                 $_SESSION['products'][] = $product;
                 header('Location:index.php');
             }
@@ -30,24 +28,18 @@ if (isset($_GET['action'])) {
             if (isset($_POST['submit'])) {
                 $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $price = filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                $qtt = filter_input(INPUT_POST, "qtt", FILTER_VALIDATE_INT);
+                $desc = filter_input(INPUT_POST, "desc", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                $_SESSION['statuts'] = $message;
-                $message = "";
-
-                if ($name && $price && $qtt) {
+                if ($name && $price && $desc) {
                     $product = [
                         "name" => $name,
                         "price" => $price,
-                        "qtt" => $qtt,
-                        "total" => $price * $qtt
+                        "desc" => $desc
                     ];
 
-                    $_SESSION['products'][] = $product;
-                    $_SESSION['statuts'] = "Produit enregistré";
-                    header('Location:index.php');
+                    $id = insertProduct($product['name'], $product['desc'], $product['price']);
+                    header('Location:product.php?id=' . $id);
                 } else {
-                    $_SESSION['statuts'] = "Veuillez remplir tous les champs avant de valider";
                     header('Location:index.php');
                 }
             }

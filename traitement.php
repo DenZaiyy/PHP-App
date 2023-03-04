@@ -98,5 +98,13 @@ if (isset($_GET['action'])) {
                 die();
             }
             break;
+        case "deleteBddItem":
+            if (isset($_POST['submit'])) {
+                $id = $_POST['products'];
+                filter_var($id, FILTER_VALIDATE_INT);
+                deleteById($id);
+                header('Location: index.php');
+                die();
+            }
     }
 }

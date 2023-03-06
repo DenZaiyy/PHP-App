@@ -81,7 +81,7 @@ $products = findAll();
         <div>
             <h2 class="text-center mt-5">Delete product from bdd</h2>
             <div>
-                <form action="traitement.php?action=deleteBddItem" method="post" class="d-flex mt-3">
+                <form action="traitement.php?action=deleteBddItem" method="post" class="d-flex mt-3" onsubmit="return confirm('Are you sure you want to delete this product?')">
                     <select name='products' class='form-select text-center'>
                         <?php
                         foreach ($products as $value) {

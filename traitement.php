@@ -114,5 +114,6 @@ if (isset($_GET['action'])) {
                 header('Location: index.php');
                 die();
             }
+            break;
     }
 }

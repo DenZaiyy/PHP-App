@@ -29,13 +29,14 @@ session_start();
                         <?php
                         //Vérifie si il y as un produit ajouter ou que ce n'est pas vide afin d'afficher le nombres de produit en mode "panier"
                         if (isset($_SESSION['products']) || !empty($_SESSION['products'])) {
-                            if (is_array($_SESSION['products'])) {
-                                $count = count($_SESSION['products']);
-                                if ($count > 1) {
-                                    echo $count . " products";
-                                } else {
-                                    echo $count . " product";
-                                }
+                            $qtt = 0;
+                            foreach ($_SESSION['products'] as $key => $value) {
+                                $qtt += $value['qtt'];
+                            }
+                            if ($qtt > 1) {
+                                echo $qtt . " products";
+                            } else {
+                                echo $qtt . " product";
                             }
                         } else {
                             echo "0 product";
@@ -47,6 +48,11 @@ session_start();
         </div>
     </nav>
     <?php
+    if (isset($_SESSION['message'])) {
+        echo '<div class="container mt-5"><div class="card bg-dark border-white mb-5"><div class="card-body text-center text-success">' . $_SESSION['message'] . "</div></div></div>";
+        unset($_SESSION['message']);
+    } // on supprime le message juste après l'avoir affiché, comme ça au refresh il disparait
+
     if (!isset($_SESSION['products']) || empty($_SESSION['products'])) {
         echo '<div class="container text-center mt-5">',
         "<strong>No products in session...</strong>",

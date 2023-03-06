@@ -2,6 +2,8 @@
 session_start();
 require './db-functions.php';
 
+$msg = "";
+
 //si il y a le mot action dans l'url
 if (isset($_GET['action'])) {
     //switch entre différentes actions possibles
@@ -31,13 +33,15 @@ if (isset($_GET['action'])) {
                 }
 
                 if ($already_exists !== false) {
+                    $msg = "Vous venez de rajouter 1 " . $product['name'] . " au panier";
                     $_SESSION['products'][$already_exists]['qtt'] += $qtt;
                     $_SESSION['products'][$already_exists]['total'] = $_SESSION['products'][$already_exists]['price'] * $_SESSION['products'][$already_exists]['qtt'];
                 } else {
                     $_SESSION['products'][] = $product;
+                    $msg = "Vous venez d'ajouter le produit " . $product['name'] . " au panier";
                 }
 
-
+                $_SESSION['message'] = $msg;
                 header('Location:index.php');
             }
             break;
@@ -63,15 +67,19 @@ if (isset($_GET['action'])) {
             break;
 
         case "removeAll":
+            $msg = "Vous venez de supprimer tout les articles du panier.";
             unset($_SESSION['products']);
-            header('Location:index.php');
+            $_SESSION['message'] = $msg;
+            header('Location:recap.php');
             die(); //die() fonction native signifie qu'après l'action précédé on arrête l'execution du script
             break;
         case "deleteItem":
             //si j'ai le mot clé "id" dans l'URL et que j'ai un produit dans mon tableau qui correspond à cet id
             if (isset($_GET['id']) && isset($_SESSION['products'][$_GET['id']])) {
                 //alors je supprime la ligne de mon tableau contenant l'id selectionner
+                $msg = "Vous venez de supprimer <strong>" . $_SESSION['products'][$_GET['id']]['name'] . "</strong> du panier.";
                 unset($_SESSION['products'][$_GET['id']]);
+                $_SESSION['message'] = $msg;
                 header('Location:recap.php');
                 die();
             }
